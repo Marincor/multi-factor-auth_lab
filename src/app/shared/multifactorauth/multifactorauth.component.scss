@@ -1,0 +1,35 @@
+.authOptions {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin: 2rem;
+  align-items: center;
+  justify-content: center;
+}
+
+
+
+button i {
+  padding: 0.5rem;
+}
+
+.authActions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  button {
+    margin: 2rem 0rem;
+    width: 100%;
+  }
+  &__text {
+    color: grey;
+    width: 320px;
+    padding: 0rem;
+    margin: 1rem 0rem;
+    text-align: center;
+    line-height: 1.2rem;
+  }
+}
+

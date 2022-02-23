@@ -1,0 +1,19 @@
+<h2>MFA LAB!</h2>
+
+<form (submit)="login()" *ngIf="!multifactorAuth" [formGroup]="loginForm">
+  <span class="p-float-label">
+    <input id="float-input-email" type="text" pInputText autocomplete="off" formControlName="email">
+    <label for="float-input-email">Email</label>
+  </span>
+
+  <span class="p-float-label">
+    <input id="float-input-password" type="password" pInputText formControlName="password">
+    <label for="float-input-password">Senha</label>
+  </span>
+
+  <p-button label="Entrar"  type="submit"></p-button>
+</form>
+
+<app-multifactorauth *ngIf="multifactorAuth" [loginForm]="loginForm"></app-multifactorauth>
+
+

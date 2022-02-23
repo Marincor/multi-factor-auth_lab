@@ -1,0 +1,37 @@
+
+
+<p-dialog [(visible)]="display" [draggable]="false" [closable]="false">
+
+  <section class="authOptions">
+    <i class="pi pi-lock" style="font-size: 2rem"></i>
+    <h2>AUTENTICAÇÃO</h2>
+
+    <button pButton pRipple type="button" icon="pi pi-undo" class="p-button-rounded" (click)="onCancelSelectAuthType()" *ngIf="authType.ngOtp || authType.googleAuth" ></button>
+
+    <button pButton type="button" class="p-button-outlined" *ngIf="!authType.ngOtp && !authType.googleAuth" label="Token de Autenticação" badge="8" (click)="onSelectAuthType('ngOtp')"><i class="pi pi-key" style="font-size: 1.5rem"></i></button>
+
+    <button  pButton pRipple   class="p-button-outlined p-button-secondary" type="button" *ngIf="!authType.ngOtp && !authType.googleAuth" label="Google Authenticator" badge="8" (click)="onSelectAuthType('googleAuth')"><i class="pi pi-google" style="font-size: 2rem"></i></button>
+  </section>
+
+
+<section class="authActions">
+
+  <section class="authActions__authToken" *ngIf="authType.ngOtp">
+    <p class="authActions__text">Entre com os seis digitos do token de autenticação enviado em seu email</p>
+    <ng-otp-input  (onInputChange)="onOtpChange($event)"  [config]="{length:6}" ></ng-otp-input>
+  </section>
+
+  <p *ngIf="authType.googleAuth">google auth</p>
+  <button pButton pRipple type="button" [label]="this.ngOtp !== ''? 'Confirmar': 'Verifique'" class="p-button" *ngIf="authType.ngOtp || authType.googleAuth" (click)="validateAuthToken()"
+  [disabled]="this.ngOtp !== ''? false: true"
+  ></button>
+</section>
+<div class="card-body">
+  <countdown #cd [config]="{ leftTime: 30 }"  (event)="onCountDown($event)"></countdown>
+  <button (click)="cd.left">{{cd.left}}</button>
+</div>
+
+
+</p-dialog>
+
+

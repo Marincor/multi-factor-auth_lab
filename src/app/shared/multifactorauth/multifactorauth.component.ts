@@ -10,8 +10,14 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 export class MultifactorauthComponent implements OnInit {
 
   @Input() loginForm?: FormGroup;
+  countdownConfig = {
+    leftTime: 6,
+    formatDate: ({ date }: {date: number}) => `${date / 1000}`,
+  }
   authForm?: FormGroup;
   display = true;
+  displayInfo = false;
+  displayResendToken = false;
   authType = {
     ngOtp: false,
     googleAuth: false
@@ -35,11 +41,11 @@ export class MultifactorauthComponent implements OnInit {
         ngOtp: ''
       })
       this.authForm.get('ngOtp')?.setValue(this.ngOtp)
-
-
-    } else {
+    }
+     else {
       this.ngOtp = '';
     }
+
   }
 
   onSelectAuthType(type: AuthType) {
@@ -53,12 +59,17 @@ export class MultifactorauthComponent implements OnInit {
     this.authType.ngOtp = false;
     this.authType.googleAuth = false;
     this.ngOtp = '';
+    this.displayInfo = false;
   }
 
   // validate the typed token //
   validateAuthToken() {
     if(this.ngOtp !== '') {
       console.log(this.ngOtp);
+      this.authService.validateAuthToken(this.ngOtp).subscribe({
+        next: data => console.log(data),
+        error: error => console.log(error)
+      })
 
     }
   }
@@ -68,17 +79,26 @@ export class MultifactorauthComponent implements OnInit {
     this.authService.requestAuthToken(this.loginForm?.value).subscribe({
       next: data => {
         console.log(data);
-        alert('Token de autenticação enviado para o seu email')
+        this.displayInfo = true;
+        this.displayResendToken = false;
+        alert('Token de autenticação enviado para o seu email');
       },
       error: error => {
-        console.log(error)
+        console.log(error);
+        this.displayInfo = true;
+        this.displayResendToken = false;
         alert('Erro ao solicitar o token');
       }
     });
   }
 
+
   onCountDown(event: any) {
     console.log(event)
+    if(event.action === "done") {
+      this.displayInfo = false;
+      this.displayResendToken = true;
+    }
   }
 
 }

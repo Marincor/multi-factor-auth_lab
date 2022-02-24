@@ -31,5 +31,22 @@ button i {
     text-align: center;
     line-height: 1.2rem;
   }
+  .countdown {
+    margin: 1rem 0rem;
+    font-size: 12px;
+  }
+
+  .resendToken {
+    cursor: pointer;
+    color: #2196F3;
+    font-weight: bold;
+    &:hover {
+      color: rgb(38, 38, 219);
+    }
+  }
+
+  .p-dialog .p-dialog-content{
+    overflow: hidden !important;
+  }
 }
 

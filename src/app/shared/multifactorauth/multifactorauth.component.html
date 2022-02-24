@@ -19,6 +19,12 @@
   <section class="authActions__authToken" *ngIf="authType.ngOtp">
     <p class="authActions__text">Entre com os seis digitos do token de autenticação enviado em seu email</p>
     <ng-otp-input  (onInputChange)="onOtpChange($event)"  [config]="{length:6}" ></ng-otp-input>
+    <p class="countdown" *ngIf="displayInfo">
+      Não recebeu o token? solicite um novo em
+        <countdown #cd [config]="countdownConfig"  (event)="onCountDown($event)"></countdown>
+        segundos
+    </p>
+    <p *ngIf="displayResendToken" class="resendToken" (click)="requestAuthToken()">Reenviar token</p>
   </section>
 
   <p *ngIf="authType.googleAuth">google auth</p>
@@ -26,10 +32,13 @@
   [disabled]="this.ngOtp !== ''? false: true"
   ></button>
 </section>
-<div class="card-body">
-  <countdown #cd [config]="{ leftTime: 30 }"  (event)="onCountDown($event)"></countdown>
-  <button (click)="cd.left">{{cd.left}}</button>
-</div>
+
+
+
+
+
+
+
 
 
 </p-dialog>

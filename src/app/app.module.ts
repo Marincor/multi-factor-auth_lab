@@ -15,13 +15,15 @@ import { CountdownModule } from 'ngx-countdown';
 import { TokenAuthenticationComponent } from './shared/multifactorauth/authTokenAuthentication/token-authentication/token-authentication.component';
 import { DashboardComponent } from './views/dashboard/dashboard/dashboard.component';
 import { AppRoutingModule } from './app-routing.module';
+import { GoogleAuthenticationComponent } from './shared/multifactorauth/googleAuthentication/google-authentication/google-authentication.component';
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     MultifactorauthComponent,
     TokenAuthenticationComponent,
-    DashboardComponent
+    DashboardComponent,
+    GoogleAuthenticationComponent
   ],
   imports: [
     BrowserModule,

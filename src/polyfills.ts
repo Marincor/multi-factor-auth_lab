@@ -46,6 +46,12 @@
  * Zone JS is required by default for Angular itself.
  */
 import 'zone.js';  // Included with Angular CLI.
+import * as Buffer from 'buffer';
+
+
+(window as any).Buffer = Buffer;
+(window as any).Buffer.from = Buffer.Buffer.from;
+(window as any).crypto.createHmac = require('crypto-js').SHA256;
 
 
 /***************************************************************************************************

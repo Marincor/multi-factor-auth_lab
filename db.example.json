@@ -1,0 +1,11 @@
+{
+  "authToken": [
+    {
+      "email": "AN_EMAIL",
+      "password": "AN_PASSWORD",
+      "generatedToken": 0,
+      "id": 1
+    }
+  ]
+
+}

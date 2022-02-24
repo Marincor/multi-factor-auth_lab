@@ -16,21 +16,15 @@
 
 <section class="authActions">
 
-  <section class="authActions__authToken" *ngIf="authType.ngOtp">
-    <p class="authActions__text">Entre com os seis digitos do token de autenticação enviado em seu email</p>
-    <ng-otp-input  (onInputChange)="onOtpChange($event)"  [config]="{length:6}" ></ng-otp-input>
-  </section>
+ <app-token-authentication *ngIf="authType.ngOtp" (otpEvent)="onOtpChange($event)" [displayInfo]="displayInfo" (countdownEvent)="onCountDown($event)" [displayResendToken]="displayResendToken"
+  (requestAuthTokenEvent)="requestAuthToken()"
+ ></app-token-authentication>
 
   <p *ngIf="authType.googleAuth">google auth</p>
   <button pButton pRipple type="button" [label]="this.ngOtp !== ''? 'Confirmar': 'Verifique'" class="p-button" *ngIf="authType.ngOtp || authType.googleAuth" (click)="validateAuthToken()"
   [disabled]="this.ngOtp !== ''? false: true"
   ></button>
 </section>
-<div class="card-body">
-  <countdown #cd [config]="{ leftTime: 30 }"  (event)="onCountDown($event)"></countdown>
-  <button (click)="cd.left">{{cd.left}}</button>
-</div>
-
 
 </p-dialog>
 

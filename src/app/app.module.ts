@@ -12,11 +12,16 @@ import {DialogModule} from 'primeng/dialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { CountdownModule } from 'ngx-countdown';
+import { TokenAuthenticationComponent } from './shared/multifactorauth/authTokenAuthentication/token-authentication/token-authentication.component';
+import { DashboardComponent } from './views/dashboard/dashboard/dashboard.component';
+import { AppRoutingModule } from './app-routing.module';
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    MultifactorauthComponent
+    MultifactorauthComponent,
+    TokenAuthenticationComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
@@ -29,13 +34,10 @@ import { CountdownModule } from 'ngx-countdown';
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    CountdownModule
+    CountdownModule,
+    AppRoutingModule
 
 
-  ],
-  exports: [
-    NgOtpInputModule,
-    DialogModule
 
   ],
   providers: [],

@@ -1,10 +1,10 @@
 
 
-<p-dialog [(visible)]="display" [draggable]="false" [closable]="false">
+<p-dialog [(visible)]="display" [draggable]="false" [closable]="false"  [style]="{width: '35vw'}" >
 
   <section class="authOptions">
     <i class="pi pi-lock" style="font-size: 2rem"></i>
-    <h2>AUTENTICAÇÃO</h2>
+    <h2 class="authOptions__title">AUTENTICAÇÃO</h2>
 
     <button pButton pRipple type="button" icon="pi pi-undo" class="p-button-rounded" (click)="onCancelSelectAuthType()" *ngIf="authType.ngOtp || authType.googleAuth" ></button>
 
@@ -18,12 +18,16 @@
 
  <app-token-authentication *ngIf="authType.ngOtp" (otpEvent)="onOtpChange($event)" [displayInfo]="displayInfo" (countdownEvent)="onCountDown($event)" [displayResendToken]="displayResendToken"
   (requestAuthTokenEvent)="requestAuthToken()"
+  [authType]="authType"
+  [ngOtp]="ngOtp"
  ></app-token-authentication>
 
-  <app-google-authentication *ngIf="authType.googleAuth && loginForm" [userForm]="loginForm"></app-google-authentication>
-  <button pButton pRipple type="button" [label]="this.ngOtp !== ''? 'Confirmar': 'Verifique'" class="p-button" *ngIf="authType.ngOtp || authType.googleAuth" (click)="validateAuthToken()"
-  [disabled]="this.ngOtp !== ''? false: true"
-  ></button>
+
+  <app-google-authentication *ngIf="authType.googleAuth && loginForm" [userForm]="loginForm" (QrCodeTokenEvent)="getQrCodeToken($event)"
+   [QrCodeToken]="QrCodeToken"
+  ></app-google-authentication>
+
+
 </section>
 
 </p-dialog>

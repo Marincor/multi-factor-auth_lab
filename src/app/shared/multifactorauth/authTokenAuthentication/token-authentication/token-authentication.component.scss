@@ -1,6 +1,16 @@
 
 .authActions__authToken {
 
+  display: flex;
+  flex-direction: column;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  button {
+    width: 100%;
+  }
+
   .countdown {
     margin: 1rem 0rem;
     font-size: 12px;
@@ -17,7 +27,7 @@
 
   .text {
     color: grey;
-    width: 320px;
+    width: 80%;
     padding: 0rem;
     margin: 1rem 0rem;
     text-align: center;

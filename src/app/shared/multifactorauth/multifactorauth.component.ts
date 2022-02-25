@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
@@ -20,6 +19,7 @@ export class MultifactorauthComponent implements OnInit {
     googleAuth: false
   }
   ngOtp: string = '';
+  QrCodeToken: string = '';
 
 
 
@@ -57,31 +57,11 @@ export class MultifactorauthComponent implements OnInit {
     this.authType.googleAuth = false;
     this.ngOtp = '';
     this.displayInfo = false;
+    this.authService.deleteTempSecret('cancel');
   }
 
   // validate the typed token //
-  validateAuthToken() {
-    if(this.ngOtp !== '') {
-      console.log(this.ngOtp);
 
-      let ngOtp = {
-        ngOtp: this.ngOtp,
-        email: 'teste@teste.com.br',
-        password: '12455'
-      }
-      var queryString = Object.keys(ngOtp).map((key) => key + '=' + ngOtp[`${key as Params}`]).join('&');
-      this.authService.mockValidateAuthToken(queryString).subscribe({
-        next: data => {
-          console.log(data)
-          alert('tokenvalidate');
-          window.location.href = '/dashboard'
-
-        },
-        error: error => console.log(error)
-      })
-
-    }
-  }
 
   // request that backend send an authtoken to the user email //
   requestAuthToken() {
@@ -110,6 +90,11 @@ export class MultifactorauthComponent implements OnInit {
     }
   }
 
+  getQrCodeToken(event: string) {
+    console.log('getqrcodetoken');
+    this.QrCodeToken = event;
+  }
+
 }
 type AuthType = "ngOtp" | "googleAuth";
-type Params =   "ngOtp" | "email" | "password";
+

@@ -1,12 +1,13 @@
 <section class="authActions__authToken" >
-  <p class="authActions__authToken text">Entre com os seis digitos do token de autenticação enviado em seu email</p>
-  <ng-otp-input  (onInputChange)="onOtpChange($event)"  [config]="{length:6}" ></ng-otp-input>
-  <p class="countdown" *ngIf="displayInfo">
-    Não recebeu o token? solicite um novo em
-      <countdown #cd [config]="countdownConfig"  (event)="onCountDown($event)"></countdown>
-      segundos
-  </p>
-  <p *ngIf="displayResendToken" class="resendToken" (click)="requestAuthToken()">Reenviar token</p>
-
-
+    <p class="authActions__authToken text">Entre com os seis digitos do token de autenticação enviado em seu email</p>
+    <ng-otp-input  (onInputChange)="onOtpChange($event)"  [config]="{length:6}" ></ng-otp-input>
+    <p class="countdown" *ngIf="displayInfo">
+      Não recebeu o token? solicite um novo em
+        <countdown #cd [config]="countdownConfig"  (event)="onCountDown($event)"></countdown>
+        segundos
+    </p>
+    <p *ngIf="displayResendToken" class="resendToken" (click)="requestAuthToken()">Reenviar token</p>
+    <button *ngIf="authType.ngOtp" pButton pRipple type="button" [label]="this.ngOtp !== ''? 'Confirmar': 'Verifique'" class="p-button" (click)="validateAuthToken()"
+    [disabled]="this.ngOtp !== ''? false: true"
+    ></button>
 </section>

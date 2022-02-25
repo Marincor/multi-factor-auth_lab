@@ -1,0 +1,51 @@
+
+.authActions__googleToken {
+
+  display: flex;
+  flex-direction: column;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  button {
+    width: 100%;
+  }
+
+  .countdown {
+    margin: 1rem 0rem;
+    font-size: 12px;
+  }
+
+  .resendToken {
+    cursor: pointer;
+    color: #2196F3;
+    font-weight: bold;
+    &:hover {
+      color: rgb(138, 138, 194);
+    }
+  }
+
+  .text {
+    color: grey;
+    width: 80%;
+    padding: 0rem;
+    margin: 1rem 0rem;
+    text-align: center;
+    line-height: 1.2rem;
+  }
+
+  button {
+    margin: 2rem 0rem;
+  }
+
+  .resetQrKey {
+    cursor: pointer;
+    color: #2196F3;
+    font-weight: bold;
+    &:hover {
+      color: rgb(138, 138, 194);
+    }
+
+  }
+
+}

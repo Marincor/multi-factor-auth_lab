@@ -1,8 +1,9 @@
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { FormGroup } from '@angular/forms';
-import { Component, OnInit, Input } from '@angular/core';
-import base32Encode from 'base32-encode';
-import { totp } from 'otplib';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import * as OTPAuth from 'otpauth';
+
+
 
 @Component({
   selector: 'app-google-authentication',
@@ -11,105 +12,84 @@ import { totp } from 'otplib';
 })
 export class GoogleAuthenticationComponent implements OnInit {
   @Input() userForm?: FormGroup |  any;
-  twoFactor: any ;
-  secret: any = {
-    ascii:'',
-    base32: '',
-    hex: '',
-    otpauth_url: ''
-  };
-  qrcode: any;
-  token : any;
-  data = new Uint8Array([0x74, 0x65, 0x73, 0x74]);
-  id: string = ""
+  @Input() QrCodeToken: string = '';
+  @Output() QrCodeTokenEvent = new EventEmitter();
+  OTPAuth: OTPAuth.TOTP = new OTPAuth.TOTP;
+  id: string = "";
+  typedToken: string = "";
+  countdownConfig = {
+    leftTime: this.OTPAuth.period,
+    formatDate: ({ date }: {date: number}) => `${date / 1000}`,
+  }
+  displayInfo: boolean = false;
+  authenticatedUser?: boolean ;
 
   constructor( private authService: AuthService) {
-    // this.twoFactor = require('totp-generator');
-    this.qrcode = require('qrcode');
+
   }
 
   ngOnInit(): void {
+    this.checkAuthenticatedUser();
+  }
 
-    console.log("google auth", this.userForm);
-    if(this.userForm) {
-      const { v4: uuidv4 } = require('uuid');
-      let code32 = makeBase32(32);
-      this.id = uuidv4();
-      this.secret ={
-        base32: code32 ,
-        otpauth_url: totp.keyuri(`${this.userForm.get('email').value}`, "project_name", "KFCTML3YPBRTS3DMKRIWSUDRNREUUNJU")
+  checkAuthenticatedUser() {
+    this.authService.mockCheckAuthenticatedUser(this.userForm.get('email').value).subscribe({
+      next: (res) => {
+        console.log('res', res)
+        this.authenticatedUser = true;
+        this.validateAuthToken(res.secret, res.id)
+      },
+      error: (erro) => {
+        console.log('error', erro);
+        this.generateQrCode();
+
       }
-      let params = {
-        id: this.id,
-        secret: this.secret.base32
-      }
-      this.authService.mockRequestGoogleAuthToken(params).subscribe(
-        {
-          next: data => {
-            console.log('data mock', data)
-          },
-          error: error => console.log(error)
-        }
-      )
-
-      let token = this.token;
-
-      console.log('secret', this.secret)
-      console.log('token deveser', token)
-      // let otpauth = `otpauth://totp/otp:Marincor?secret=${token32}issuer=otp`;
-
-
-
-    this.qrcode.toCanvas(document.getElementById('canvas'), this.secret.otpauth_url, function(error: any) {
-
-      if (error) {
-        console.error(error);
-      }
-
     });
+  }
 
-
-    }
-
-
-    try {
-
-      setTimeout(() =>{
-        let typedtoken = prompt('token') as string;
-          if(typedtoken) {
-
-              let params = {
-                secret: 'KFCTML3YPBRTS3DMKRIWSUDRNREUUNJU',
-                token: typedtoken
-              }
-              let valid = this.authService.mockRequestValidateGoogleAuthToken(params);
-
-              console.log(valid)
-          }
-
-      }, 2000)
-
-
-    } catch(error) {
-      console.log('error to valid', error)
-    }
-
-
+   generateQrCode()  {
+      this.authenticatedUser = false;
+      this.authService.mockRequestGoogleAuthToken(this.userForm.get('email').value);
 
   }
 
+  onOtpChange(event:string) {
+    console.log('onotpchangeogogle', event);
+    if(event.length === 6) {
+      console.log('if onotpchange')
+      this.QrCodeTokenEvent.emit(event);
+      this.typedToken = event;
+    } else {
+      this.QrCodeTokenEvent.emit('');
+      this.typedToken = '';
+    }
+  }
+
+  onCountDown(event: any) {
+    if(event.action === "done") {
+      this.generateQrCode();
+      document.getElementById('restartCountdown')?.click();
+
+    }
+  }
+
+
+  validateAuthToken(secret?:string, email?:string) {
+          if(this.typedToken) {
+              let valid = this.authService.mockRequestValidateGoogleAuthToken(this.typedToken, secret, email);
+            if(valid) {
+              alert('authtoken validate');
+              window.location.href = '/dashboard'
+            } else {
+              alert('token inválido')
+            }
+          }
+  }
+
+  resetQrCodeKey() {
+      this.authService.deleteSecret(this.userForm.get('email').value);
+      this.checkAuthenticatedUser();
+  }
 
 }
-
-function makeBase32(length: any) {
-  var result           = '';
-  var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ234567';
-  var charactersLength = characters.length;
-  for ( var i = 0; i < length; i++ ) {
-    result += characters.charAt(Math.floor(Math.random() *
-charactersLength));
- }
- return result.toUpperCase();
-}
-
 

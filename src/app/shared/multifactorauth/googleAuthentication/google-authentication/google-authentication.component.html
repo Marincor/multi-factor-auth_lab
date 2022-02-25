@@ -1,2 +1,20 @@
-<p>google-authentication works!</p>
-<canvas id="canvas"></canvas>
+
+<section class="authActions__googleToken" >
+  <p class="authActions__authToken text" >
+    {{ !this.authenticatedUser ? ' Faça a leitura do QrCode pelo aplicativo Google Authenticator': 'Digite o token que aparece na tela do seu aplicativo de autenticação'}}
+  </p>
+  <canvas id="canvas" *ngIf="!this.authenticatedUser"></canvas>
+  <ng-otp-input  (onInputChange)="onOtpChange($event)"  [config]="{length:6}" ></ng-otp-input>
+  <p class="countdown"  *ngIf="!this.authenticatedUser">
+     O QrCode expirará em
+      <countdown #cd [config]="countdownConfig"  (event)="onCountDown($event)"></countdown>
+      segundos
+      <button id="restartCountdown" (click)="cd.restart()" style="display: none;"></button>
+  </p>
+  <p (click)="resetQrCodeKey()" *ngIf="this.authenticatedUser" class="resetQrKey">
+     Gerar uma nova chave de autenticação
+  </p>
+  <button  pButton pRipple type="button" [label]="this.QrCodeToken !== ''? 'Confirmar': 'Verifique'" class="p-button" (click)="checkAuthenticatedUser()"
+  [disabled]="this.QrCodeToken !== ''? false: true"
+  ></button>
+</section>

@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiBaseUrl: 'https://develop.app.scuta.ai/api',
+  apiBaseUrl: 'http://localhost:3000',
 
 };
 

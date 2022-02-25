@@ -1,3 +1,4 @@
+
 /**
  * This file includes polyfills needed by Angular and is loaded before the app.
  * You can add your own extra polyfills to this file.
@@ -51,7 +52,7 @@ import * as Buffer from 'buffer';
 
 (window as any).Buffer = Buffer;
 (window as any).Buffer.from = Buffer.Buffer.from;
-(window as any).crypto.createHmac = require('crypto-js').SHA256;
+(window as any).crypto.createHmac = require('crypto-js').createHmac;
 
 
 /***************************************************************************************************

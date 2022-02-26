@@ -6,6 +6,23 @@
       "generatedToken": 0,
       "id": 1
     }
+  ],
+  "authGoogleGenerate": [
+    {
+      "id": "LOGGED_EMAIL",
+      "temp_secret": "TEMP_SECRET"
+    }
+  ],
+  "authGoogleAuthenticated": [
+    {
+      "id": "LOGGED_EMAIL",
+      "secret": "TEMP_SECRET TURNED PERMANENT_SECRET"
+    }
   ]
 
+
 }
+
+
+
+

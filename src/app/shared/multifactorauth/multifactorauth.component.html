@@ -23,8 +23,7 @@
  ></app-token-authentication>
 
 
-  <app-google-authentication *ngIf="authType.googleAuth && loginForm" [userForm]="loginForm" (QrCodeTokenEvent)="getQrCodeToken($event)"
-   [QrCodeToken]="QrCodeToken"
+  <app-google-authentication *ngIf="authType.googleAuth && loginForm" [userForm]="loginForm"
   ></app-google-authentication>
 
 

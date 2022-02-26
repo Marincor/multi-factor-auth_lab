@@ -19,7 +19,7 @@ export class MultifactorauthComponent implements OnInit {
     googleAuth: false
   }
   ngOtp: string = '';
-  QrCodeToken: string = '';
+
 
 
 
@@ -27,6 +27,13 @@ export class MultifactorauthComponent implements OnInit {
     private fb: FormBuilder) { }
 
   ngOnInit(): void {
+    // google temp secret //
+    this.authService.deleteTempSecret(this.loginForm?.get('email')?.value).subscribe(
+      {
+        next: res => console.log(res),
+        error: erro => console.error(erro)
+      }
+    );
 
   }
 
@@ -42,7 +49,6 @@ export class MultifactorauthComponent implements OnInit {
      else {
       this.ngOtp = '';
     }
-
   }
 
   onSelectAuthType(type: AuthType) {
@@ -53,11 +59,17 @@ export class MultifactorauthComponent implements OnInit {
   }
 
   onCancelSelectAuthType() {
-    this.authType.ngOtp = false;
+    this.authType.ngOtp = false
     this.authType.googleAuth = false;
     this.ngOtp = '';
     this.displayInfo = false;
-    this.authService.deleteTempSecret('cancel');
+    // delete google temp secret //
+    this.authService.deleteTempSecret(this.loginForm?.get('email')?.value).subscribe(
+      {
+        next: res => console.log(res),
+        error: erro => console.error(erro)
+      }
+    );
   }
 
   // validate the typed token //
@@ -90,10 +102,7 @@ export class MultifactorauthComponent implements OnInit {
     }
   }
 
-  getQrCodeToken(event: string) {
-    console.log('getqrcodetoken');
-    this.QrCodeToken = event;
-  }
+
 
 }
 type AuthType = "ngOtp" | "googleAuth";

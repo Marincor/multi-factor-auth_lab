@@ -22,6 +22,7 @@
     "base32-encode": "^2.0.0",
     "buffer": "^5.7.1",
     "crypto-js": "^4.1.1",
+    "json-server": "^0.17.0",
     "ng-otp-input": "^1.8.1",
     "ngx-countdown": "^13.0.0",
     "node-2fa": "^2.0.3",

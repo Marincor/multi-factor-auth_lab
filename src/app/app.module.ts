@@ -12,10 +12,10 @@ import {DialogModule} from 'primeng/dialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { CountdownModule } from 'ngx-countdown';
-import { TokenAuthenticationComponent } from './shared/multifactorauth/authTokenAuthentication/token-authentication/token-authentication.component';
 import { DashboardComponent } from './views/dashboard/dashboard/dashboard.component';
 import { AppRoutingModule } from './app-routing.module';
-import { GoogleAuthenticationComponent } from './shared/multifactorauth/googleAuthentication/google-authentication/google-authentication.component';
+import { TokenAuthenticationComponent } from './shared/multifactorauth/authTokenAuthentication/token-authentication.component';
+import { GoogleAuthenticationComponent } from './shared/multifactorauth/googleAuthentication/google-authentication.component';
 @NgModule({
   declarations: [
     AppComponent,

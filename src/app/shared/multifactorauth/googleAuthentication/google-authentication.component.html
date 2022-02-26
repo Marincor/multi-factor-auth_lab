@@ -14,7 +14,7 @@
   <p (click)="resetQrCodeKey()" *ngIf="this.authenticatedUser" class="resetQrKey">
      Gerar uma nova chave de autenticação
   </p>
-  <button  pButton pRipple type="button" [label]="this.QrCodeToken !== ''? 'Confirmar': 'Verifique'" class="p-button" (click)="checkAuthenticatedUser()"
-  [disabled]="this.QrCodeToken !== ''? false: true"
+  <button  pButton pRipple type="button" [label]="this.typedToken !== ''? 'Confirmar': 'Verifique'" class="p-button" (click)="validateAuthToken()"
+  [disabled]="this.typedToken !== ''? false: true"
   ></button>
 </section>

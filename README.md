@@ -5,7 +5,7 @@
 
 ## 🛈 About
 
-Project made to registrate an understandment about implementation of an <a href="https://angular.io/"> Angular </a> mfa application. In this project, it used two concepts, oneof them is authentication token by sending directly to the user email the temporary token, and the another one is authentication with QrCode using a mobile app (preferably <a href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2&hl=pt_BR&gl=US"> Google Authenticator
+Project made to registrate an understandment about implementation of an <a href="https://angular.io/"> Angular </a> mfa application. In this project, it used two concepts, one of them is authentication token by sending directly to the user email the temporary token, and the another one is authentication with QrCode using a mobile app (preferably <a href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2&hl=pt_BR&gl=US"> Google Authenticator
  </a>) to read the QrCode and generate the secret token. 
  
 ![image](https://user-images.githubusercontent.com/84210050/155857240-b72d96c6-a3f9-4aab-a8fb-d960dc7fe25b.png)

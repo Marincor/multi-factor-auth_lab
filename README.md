@@ -51,7 +51,7 @@ Project made to registrate an understandment about implementation of an <a href=
 
 ## 📚 Libraries
 
-   -  <a href="https://www.primefaces.org/primeng/"> <img src="https://www.primefaces.org/primeng/resources/images/primeng-logo-horizontal.svg" title="primeNG" width="80px" /> PrimeNG </a>
+   -  <a href="https://www.primefaces.org/primeng/"> 👤 PrimeNG </a>
    > User Interface
   
   - <a href="https://www.npmjs.com/package/qrcode"> <img src="https://img.icons8.com/cotton/2x/000000/qr-code--v2.png" title="qrCode" width="20px" />node QrCode </a>
